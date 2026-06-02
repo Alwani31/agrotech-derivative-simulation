@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malaysian Agrotech Calculus Simulator</title>
+    <!-- Tailwind CSS for modern layout -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Chart.js for smooth data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- MathJax for rendering calculus formulas -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen antialiased selection:bg-emerald-500 selection:text-white">
+
+    <!-- Navbar / Brand -->
+    <header class="border-b border-slate-800 bg-slate-950/50 backdrop-blur-md sticky top-0 z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <span class="text-xs font-semibold uppercase tracking-widest text-emerald-400">Bioscience Education Portal</span>
+                <h1 class="text-2xl font-black text-white tracking-tight">Malaysian Agrotech Calculus Simulator</h1>
+            </div>
+            <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg text-xs text-slate-400">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                SFA: Agrotech & SFM: Food Security Core Module
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Sidebar: Formulae & Core Mathematical Models -->
+        <section class="lg:col-span-4 space-y-6">
+            
+            <!-- Context Profile Card -->
+            <div class="bg-slate-950 border border-slate-800/80 rounded-2xl p-6 shadow-xl relative overflow-hidden group">
+                <div class="absolute -right-16 -bottom-16 w-36 h-36 bg-emerald-500/5 rounded-full blur-2xl group-hover:bg-emerald-500/10 transition-all duration-500"></div>
+                <h2 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                    <span class="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 text-sm">🌱</span> 
+                    The Bioscience Problem
+                </h2>
+                <p class="text-sm text-slate-400 leading-relaxed">
+                    In modern Malaysian plantation management, optimizing the main nursery timeline of <em>Elaeis guineensis</em> (Oil Palm) seedlings directly correlates with long-term crude palm oil yield stability. This calculator models the vegetative growth of palm fronds over a standard 12-month cycle.
+                </p>
+                <div class="mt-4 pt-4 border-t border-slate-800/60 text-xs text-slate-500">
+                    <strong class="text-slate-400 block mb-1">Empirical Reference Models:</strong>
+                    Baseline trajectories mapped from structural field templates found in the <em>MPOB (Malaysian Palm Oil Board) Nursery Guidelines</em> and physiological curves on <em>Planter DB Malaysia</em>.
+                </div>
+            </div>
+
+            <!-- Math Syntax Box -->
+            <div class="bg-slate-950 border border-slate-800/80 rounded-2xl p-6 shadow-xl space-y-4">
+                <h3 class="text-md font-bold text-white flex items-center gap-2">
+                    <span class="p-1.5 rounded-lg bg-sky-500/10 text-sky-400 text-sm">🧮</span>
+                    The Derivative Formula
+                </h3>
+
+                <!-- Primary Equation -->
+                <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-800">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-2">Absolute Height Curve</span>
+                    <div class="text-center py-2 text-slate-200 overflow-x-auto">
+                        $$f(x) = 0.05x^3 - 0.4x^2 + 5x + 15$$
+                    </div>
+                    <p class="text-[11px] text-slate-400 mt-2">
+                        Computes the standard vegetative height ($f(x)$ in **cm**) based on baseline age ($x$ in **months**).
+                    </p>
+                </div>
+
+                <!-- Instantaneous Rate Equation -->
+                <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-800">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400 block mb-2">Instantaneous Growth Velocity</span>
+                    <div class="text-center py-2 text-slate-200 overflow-x-auto">
+                        $$f'(x) = 0.15x^2 - 0.8x + 5$$
+                    </div>
+                    <p class="text-[11px] text-slate-400 mt-2">
+                        Calculates the instantaneous growth rate ($f'(x)$ in **cm/month**). This derivative represents the vigor of the plant at that specific moment.
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Main Workspace: Visualizer and Interactive Output -->
+        <section class="lg:col-span-8 space-y-6">
+            
+            <!-- Graphic Element Wrapper -->
+            <div class="bg-slate-950 border border-slate-800/80 rounded-2xl p-6 shadow-xl">
+                <div class="mb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                    <div>
+                        <h3 class="text-lg font-bold text-white">12-Month Seedling Growth Trajectory</h3>
+                        <p class="text-xs text-slate-400">Click any interactive data node across the plot line to inject calculus values.</p>
+                    </div>
+                    <span class="text-[10px] bg-slate-900 border border-slate-800 text-slate-400 px-2 py-1 rounded-md font-mono">Chart.js Engine Active</span>
+                </div>
+
+                <!-- Interactive canvas element frame -->
+                <div class="relative h-[340px] w-full bg-slate-900/30 rounded-xl p-2 border border-slate-900">
+                    <canvas id="agrotechChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Dynamic Interactive Terminal Box -->
+            <div id="telemetryConsole" class="bg-slate-950 border border-slate-800/80 rounded-2xl p-6 shadow-2xl relative transition-all duration-300">
+                
+                <!-- Inactive System State -->
+                <div id="consoleStaticPrompt" class="text-center py-8 text-slate-500 space-y-2">
+                    <span class="text-2xl block animate-bounce">🖱️</span>
+                    <p class="text-sm font-medium">Awaiting interaction. Select an experimental timeline variable node on the chart above to extract derivative telemetry.</p>
+                </div>
+
+                <!-- Active System State Template Layout -->
+                <div id="consoleActiveOutput" class="hidden space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+                            <h4 class="text-xs font-bold uppercase tracking-widest text-slate-300">Calculus Telemetry Diagnostics</h4>
+                        </div>
+                        <div class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-mono font-bold px-3 py-1 rounded-full" id="nodeMonth">
+                            Month: --
+                        </div>
+                    </div>
+
+                    <!-- Computed Scalar Metric Data Fields -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-slate-900/70 border border-slate-800 p-4 rounded-xl">
+                            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Absolute Canopy Height \(f(x)\)</span>
+                            <div class="flex items-baseline gap-1">
+                                <span id="nodeHeight" class="text-3xl font-black text-white font-mono">--</span>
+                                <span class="text-xs text-slate-500 font-medium">cm</span>
+                            </div>
+                        </div>
+                        <div class="bg-slate-900/70 border border-emerald-900/40 p-4 rounded-xl bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950/20">
+                            <span class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider block mb-1">Instantaneous Velocity \(f'(x)\)</span>
+                            <div class="flex items-baseline gap-1">
+                                <span id="nodeDerivative" class="text-3xl font-black text-emerald-400 font-mono">--</span>
+                                <span class="text-xs text-emerald-600 font-bold">cm/month</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Real World Application Analysis -->
+                    <div class="bg-slate-900 border-l-4 border-amber-500/80 p-4 rounded-r-xl space-y-1">
+                        <span class="text-xs font-bold uppercase tracking-wider text-amber-400 block">Layman Translation & Agrotech Application:</span>
+                        <p id="nodeInsight" class="text-sm text-slate-300 leading-relaxed font-normal">--</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Calculation Engine Script Core Logic -->
+    <script>
+        // Set up the operational timeline span array variables (0 to 12 Months)
+        const timelineLabels = Array.from({length: 13}, (_, index) => index);
+
+        // Generate baseline static plant data arrays via f(x) = 0.05x³ - 0.4x² + 5x + 15
+        const seedlingHeights = timelineLabels.map(x => {
+            return (0.05 * Math.pow(x, 3) - 0.4 * Math.pow(x, 2) + 5 * x + 15).toFixed(2);
+        });
+
+        // Instantaneous Derivative Math Engine Function f'(x) = 0.15x² - 0.8x + 5
+        function evaluateGrowthVelocity(x) {
+            return (0.15 * Math.pow(x, 2) - 0.8 * x + 5).toFixed(2);
+        }
+
+        // Return tailored contextual translation blocks dependent on experimental timeline ranges
+        function generateBiologicalContext(x, rate, totalHeight) {
+            if (x <= 3) {
+                return `At ${x} months, the seedling is executing early root system anchoring. The instantaneous growth rate indicates that for every month your plant stays in this zone, its structural height jumps by exactly ${rate} cm. Nitrogen inputs should be kept modest to prevent root burn.`;
+            } else if (x > 3 && x <= 8) {
+                return `At month ${x}, the plant enters its peak metabolic transition period as fronds start bifurcating. The derivative hits a velocity of ${rate} cm/month. This value is your baseline benchmark; if a field sample's rate drops below this number, check for nitrogen deficiency or irrigation issues immediately.`;
+            } else {
+                return `At month ${x}, your oil palm canopy has achieved an absolute height of ${totalHeight} cm. The derivative rate of ${rate} cm/month indicates optimal vegetative vigor. This high growth velocity proves the seedling has stored enough energy to survive the transition from the nursery to the field.`;
+            }
+        }
+
+        // Setup Chart.js context configuration rules
+        const visualContext = document.getElementById('agrotechChart').getContext('2d');
+        const agrotechChart = new Chart(visualContext, {
+            type: 'line',
+            data: {
+                labels: timelineLabels,
+                datasets: [{
+                    label: 'Seedling Height f(x) (cm)',
+                    data: seedlingHeights,
+                    borderColor: '#10b981', // Tailwind Emerald 500
+                    backgroundColor: 'rgba(16, 185, 129, 0.04)',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#0f172a',
+                    pointBorderColor: '#34d399',
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 9,
+                    pointHoverBackgroundColor: '#34d399',
+                    fill: true,
+                    tension: 0.25
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Time in Main Nursery (Months)', color: '#94a3b8', font: { size: 11, weight: '600' } },
+                        grid: { color: 'rgba(51, 65, 85, 0.3)' },
+                        ticks: { color: '#64748b' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Height Metrics (cm)', color: '#94a3b8', font: { size: 11, weight: '600' } },
+                        grid: { color: 'rgba(51, 65, 85, 0.3)' },
+                        ticks: { color: '#64748b' },
+                        suggestedMax: 85
+                    }
+                },
+                // Click hook callback matrix integration
+                onClick: (event, clickedElements) => {
+                    if (clickedElements.length > 0) {
+                        const structuralElementIndex = clickedElements[0].index;
+                        
+                        const selectedMonth = timelineLabels[structuralElementIndex];
+                        const extractedHeight = seedlingHeights[structuralElementIndex];
+                        const calculatedVelocity = evaluateGrowthVelocity(selectedMonth);
+                        const structuredInsight = generateBiologicalContext(selectedMonth, calculatedVelocity, extractedHeight);
+
+                        // Structural UI Visibility mutations
+                        document.getElementById('consoleStaticPrompt').classList.add('hidden');
+                        document.getElementById('consoleActiveOutput').classList.remove('hidden');
+
+                        // DOM updates
+                        document.getElementById('nodeMonth').innerText = `Month Variable Axis: ${selectedMonth}`;
+                        document.getElementById('nodeHeight').innerText = extractedHeight;
+                        document.getElementById('nodeDerivative').innerText = calculatedVelocity;
+                        document.getElementById('nodeInsight').innerText = structuredInsight;
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
